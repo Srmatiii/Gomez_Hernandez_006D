@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "PoKe",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
