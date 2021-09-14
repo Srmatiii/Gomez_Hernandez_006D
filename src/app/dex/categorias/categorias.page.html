@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        DefaultHref="/"
+        Text="Volver"
+        Color="Secondary"
+        Mode="ios">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Inicio de sesion</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-avatar>
+        <ion-img src="/assets/Pokeball.png"></ion-img>
+      </ion-avatar>
+   </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h2>Registro:</h2>
+
+  <ion-item>
+    <ion-label>Ingrese su nombre: </ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Fecha de nacimiento: </ion-label>
+    <ion-datetime type="datetime"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Ingrese número: </ion-label>
+    <ion-input type="number" ></ion-input>
+  </ion-item>
+
+  <form #formulario="ngForm" (ngSubmit) ="onSubmit()">
+
+    <ion-list-header>
+      <ion-label>Formulario Válido: {{formulario.valid}} </ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-input type="email" placeholder="Email"
+                 name="email" [(ngModel)]= "usuario.email"
+                 pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                 required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password: </ion-label>
+      <ion-input type="password" placeholder="Contraseña"
+                 name="password" [(ngModel)]= "usuario.password"
+                 required>
+      </ion-input>
+    </ion-item>
+
+    <ion-button [disabled] ="formulario.invalid"
+              type="submit" expand="block" routerLink="/inicio">
+        Click me
+    </ion-button>
+
+  </form>
+
+
+</ion-content>
