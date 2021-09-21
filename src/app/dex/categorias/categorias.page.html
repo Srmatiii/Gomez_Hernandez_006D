@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button
         DefaultHref="/"
         Text="Volver"
-        Color="Secondary"
+        Color="secondary"
         Mode="ios">
       </ion-back-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" color="secondary">
 
   <h2>Registro:</h2>
 
@@ -35,8 +35,34 @@
 
   <ion-item>
     <ion-label>Ingrese número: </ion-label>
-    <ion-input type="number" ></ion-input>
+    <ion-input type="number">  </ion-input>
   </ion-item>
+
+  <ion-item>
+    <ion-label> Pokemon favorito: </ion-label>
+    <ion-input type="text" ></ion-input>
+  </ion-item>
+
+      
+  <ion-radio-group lines="full">
+    <ion-list-header>
+      <ion-label>Genero</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Hombre</ion-label>
+      <ion-radio slot="start" value="Hombre"checked></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Mujer</ion-label>
+      <ion-radio slot="start" value="Mujer"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+
+
+
 
   <form #formulario="ngForm" (ngSubmit) ="onSubmit()">
 
@@ -60,11 +86,25 @@
                  required>
       </ion-input>
     </ion-item>
+    
+    
+     
+
+    
+
+ 
+   
+    
+    
+
+
 
     <ion-button [disabled] ="formulario.invalid"
               type="submit" expand="block" routerLink="/inicio">
         Click me
     </ion-button>
+
+
 
   </form>
 

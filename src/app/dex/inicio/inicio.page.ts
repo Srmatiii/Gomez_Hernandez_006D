@@ -22,7 +22,7 @@ export class InicioPage implements OnInit {
       redirecTo: '/categorias'
     },
     {
-      icon: 'alarm-outline', 
+      icon: 'moon-outline', 
       name: 'Pokemones', 
       redirecTo: '/pokemones'
     },
