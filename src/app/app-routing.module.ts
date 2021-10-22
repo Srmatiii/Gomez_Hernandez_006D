@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./dex/login/login.module').then( m => m.LoginPageModule)
   },
+  {
+    path: 'api/:index',
+    loadChildren: () => import('./dex/details/details.module').then( m => m.DetailsPageModule)
+  },
 ];
 
 @NgModule({
