@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-categorias',
-  templateUrl: './categorias.page.html',
-  styleUrls: ['./categorias.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-export class CategoriasPage implements OnInit {
-
+export class LoginPage implements OnInit {
+  
   usuario = {
     Nombre:'',
     Nacimiento:'',
@@ -15,15 +15,12 @@ export class CategoriasPage implements OnInit {
     password:''
   }
 
-
   constructor() { }
 
   ngOnInit() {
   }
-
   onSubmit(){
     console.log('Guardar');
     console.log(this.usuario);
   }
-
 }

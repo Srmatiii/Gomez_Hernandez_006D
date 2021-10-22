@@ -23,14 +23,19 @@ export class AppComponent {
     },
     {
       icon: 'sunny-outline', 
-      name: 'Categorias', 
+      name: 'Iniciar Sesion', 
       redirecTo: '/categorias'
     },
     {
-      icon: 'moon-outline', 
-      name: 'Pokemones', 
-      redirecTo: '/pokemones'
+      icon:'water-outline',
+      name:'Login',
+      redirecTo: '/login'
     },
+    {
+      icon: 'star-outline',
+      name: 'Api',
+      redirecTo: '/api'
+    }
   ]
 
   constructor() {}

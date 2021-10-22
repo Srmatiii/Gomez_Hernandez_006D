@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
 
-interface Componente{
-  icon: string;
-  name: string;
-  redirecTo:string;
-
-}
 
 @Component({
   selector: 'app-inicio',
@@ -15,27 +8,11 @@ interface Componente{
 })
 export class InicioPage implements OnInit {
 
-  componentes : Componente[] =[
-    {
-      icon: 'sunny-outline', 
-      name: 'Categorias', 
-      redirecTo: '/categorias'
-    },
-    {
-      icon: 'moon-outline', 
-      name: 'Pokemones', 
-      redirecTo: '/pokemones'
-    },
-
-
-  ]
-  constructor(private menuController: MenuController) {}
+  
+  constructor() {}
 
   ngOnInit() {
   }
 
-  mostrarMenu(){
-    this.menuController.open('first');
-  }
 
 }

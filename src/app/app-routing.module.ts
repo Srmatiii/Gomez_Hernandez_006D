@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'pokemones',
     loadChildren: () => import('./dex/pokemones/pokemones.module').then( m => m.PokemonesPageModule)
   },
+  {
+    path: 'api',
+    loadChildren: () => import('./dex/api/api.module').then( m => m.ApiPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./dex/login/login.module').then( m => m.LoginPageModule)
+  },
 ];
 
 @NgModule({
