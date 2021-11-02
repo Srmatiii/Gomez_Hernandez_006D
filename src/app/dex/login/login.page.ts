@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoginService, Datos } from 'src/app/services/login.service';
+import { Platform, ToastController, IonList } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -6,21 +8,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  datos: Datos[] = [];
+  newDato: Datos = <Datos>{}
+  @ViewChild('myList')myList :IonList
+
+  constructor(private storageService: LoginService,
+    private plt: Platform, private toastController: ToastController) { 
+      this.plt.ready().then(()=>{
+        this.loadDatos();
+      });
+    }
+
+  ngOnInit() { 
+  }
+
+  loadDatos(){
+    this.storageService.getDatos().then(datos=>{
+      this.datos=datos;
+    });
+  }
+
+  addDatos(){
+    this.newDato.modified = Date.now();
+    this.newDato.id = Date.now();
+    this.storageService.addDatos(this.newDato).then(dato=>{
+      this.newDato = <Datos>{};
+      this.showToast('!Datos Agregados');
+      this.loadDatos();
+    });
+  }
+
+  async showToast(msg){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  updateDatos(dato: Datos ){
+    dato.nombre = `UPDATED: ${dato.nombre}`;
+    dato.modified = Date.now();
+    this.storageService.updateDatos(dato).then(item=>{
+      this.showToast('Elemento actualizado');
+      this.myList.closeSlidingItems();
+      this.loadDatos();
+    });
+  }
+
+  deleteDatos(dato: Datos){
+    this.storageService.deleteDatos(dato.id).then(item=>{
+      this.showToast('Elemento eliminado');
+      this.myList.closeSlidingItems();
+      this.loadDatos();
+    });
+  }
+
   
-  usuario = {
-    Nombre:'',
-    Nacimiento:'',
-    Favorito:'',
-    email:'',
-    password:''
-  }
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-  onSubmit(){
-    console.log('Guardar');
-    console.log(this.usuario);
-  }
 }

@@ -1,5 +1,7 @@
-<ion-header>
+<ion-header [translucent]="true">
+
   <ion-toolbar color="primary">
+
     <ion-buttons slot="start">
       <ion-back-button
         DefaultHref="/"
@@ -8,7 +10,10 @@
         Mode="ios">
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Inicio sesion</ion-title>
+
+    <ion-title>
+      Iniciar Sesion
+    </ion-title>
 
     <ion-buttons slot="end">
       <ion-avatar>
@@ -17,61 +22,46 @@
    </ion-buttons>
 
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="ion-padding" color="secondary">
 
-  <form #formulario="ngForm" (ngSubmit) ="onSubmit()">
+  <ion-item>
+    <ion-label position="fixed">Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="newDato.Nombre"></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label>Ingrese su nombre:</ion-label>
-      <ion-input type="text"
-                 name="Nombre" [(ngModel)]="usuario.Nombre"
-                 required>
-      </ion-input>
-    </ion-item>
+  <ion-item>
+    <ion-label position="fixed">Password</ion-label>
+    <ion-input type="text" [(ngModel)]="newDato.password"></ion-input>
+  </ion-item>
+  
+  <ion-button (click)="addDatos()" expand="full">
+    Agregar datos
+  </ion-button>
 
-    <ion-item>
-      <ion-label>Fecha de nacimiento:</ion-label>
-      <ion-datetime type="datetime"
-                    name="Nacimiento" [(ngModel)]="usuario.Nacimiento"
-                 required>
-      </ion-datetime>           
-    </ion-item>
+  <ion-list #myList>
+    <ion-list-header>
+      <ion-label>Mis Datos</ion-label>
+    </ion-list-header>
 
-    <ion-item>
-      <ion-label>Pokemon favorito:</ion-label>
-      <ion-input type="text"
-                 name="Favorito" [(ngModel)]="usuario.Favorito"
-                 required>
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Email: </ion-label>
-      <ion-input type="email"
-                 name="email" [(ngModel)]= "usuario.email"
-                 pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-                 required>
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Password: </ion-label>
-      <ion-input type="password"
-                 name="password" [(ngModel)]= "usuario.password"
-                 required>
-      </ion-input>
-    </ion-item>
-    
-    <ion-button [disabled] ="formulario.invalid"
-              type="submit" expand="block" routerLink="/pokemones">
-        Ingresar
-    </ion-button>
-
-
-
-  </form>
-
-
+    <ion-list>
+      <ion-item-sliding *ngFor="let dato of datos">
+        <ion-item>
+          <ion-label text-wrap>
+            <h3>{{dato.Nombre}}</h3>
+            <ion-text color="secondary">
+              <p>{{dato.password}}</p>
+            </ion-text>
+            <p>{{dato.modified | date: 'short'}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="secondary" (click)="updateDatos(dato)">Actualizar</ion-item-option>
+          <ion-item-option color="danger" (click)="deleteDatos(dato)">Eliminar</ion-item-option> 
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-list>
 </ion-content>
