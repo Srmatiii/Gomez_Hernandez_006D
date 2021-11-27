@@ -23,12 +23,12 @@ export class AppComponent {
     },
     {
       icon: 'sunny-outline', 
-      name: 'Iniciar Sesion', 
+      name: 'Crear Cuenta', 
       redirecTo: '/categorias'
     },
     {
       icon:'water-outline',
-      name:'Login',
+      name:'Iniciar Sesion',
       redirecTo: '/login'
     },
     {

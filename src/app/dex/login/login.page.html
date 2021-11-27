@@ -12,7 +12,7 @@
     </ion-buttons>
 
     <ion-title>
-      Iniciar Sesion
+      Iniciar sesion
     </ion-title>
 
     <ion-buttons slot="end">
@@ -26,47 +26,26 @@
 </ion-header>
 
 <ion-content class="ion-padding" color="secondary">
-
-  <ion-item>
-    <ion-label position="fixed">Nombre</ion-label>
-    <ion-input type="text" [(ngModel)]="newDato.Nombre"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="fixed">Password</ion-label>
-    <ion-input type="text" [(ngModel)]="newDato.password"></ion-input>
-  </ion-item>
+  <ion-card-content>
+    <form  #formulario="ngForm" class="form-signin">
+      <ion-card >
+        <ion-label position="fixed">Nombre</ion-label>
+        <ion-input name="Nombre" [(ngModel)]="user.Nombre" type="text" required></ion-input>
+      </ion-card>
   
-  <ion-button (click)="addDatos()" expand="full">
-    Agregar datos
-  </ion-button>
-
-  <ion-list #myList>
-    <ion-list-header>
-      <ion-label>Mis Datos</ion-label>
-    </ion-list-header>
-
-    <ion-list>
-      <ion-item-sliding *ngFor="let dato of datos">
-        <ion-item>
-          <ion-label text-wrap>
-            <h3>{{dato.Nombre}}</h3>
-            <ion-text color="secondary">
-              <p>{{dato.password}}</p>
-            </ion-text>
-            <p>{{dato.modified | date: 'short'}}</p>
-          </ion-label>
-        </ion-item>
-        <ion-item-options side="end">
-          <ion-item-option color="secondary" (click)="updateDatos(dato)">Actualizar</ion-item-option>
-          <ion-item-option color="danger" (click)="deleteDatos(dato)">Eliminar</ion-item-option> 
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-  </ion-list>
-
-  <ion-button type="submit" expand="block" routerLink="/pokemones">
-        Siguiente
-    </ion-button>
-
+      <ion-card >
+        <ion-label  position="fixed">Password</ion-label>
+        <ion-input name="password" [(ngModel)]="user.password" type="password" required></ion-input>
+      </ion-card>
+  
+      <ion-button class="ion-margin-top btnLogin " type="submit" expand="block"  
+      (click)="signIn()" routerLink="/pokemones" color="danger"  [disabled]="formulario.invalid">
+        Iniciar sesion
+      </ion-button>
+  
+  
+      <ion-button color="dark" expand="block" fill="outline" [routerLink]="['/categorias']">Crear cuenta</ion-button>
+    </form>
+  
+  </ion-card-content>
 </ion-content>

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService, Datos } from 'src/app/services/login.service';
-import { Platform, ToastController, IonList } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,61 +8,37 @@ import { Platform, ToastController, IonList } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  log : Datos[] = [];
+  loginUrl =' ' ;
+  user = {
+    nombre : '', 
+    password: ''
+  }
 
-  datos: Datos[] = [];
-  newDato: Datos = <Datos>{}
-  @ViewChild('myList')myList :IonList
-
-  constructor(private storageService: LoginService,
-    private plt: Platform, private toastController: ToastController) { 
-      this.plt.ready().then(()=>{
-        this.loadDatos();
-      });
-    }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private login: LoginService){ }
 
   ngOnInit() { 
+    this.loginUrl = this.activatedRoute.snapshot.queryParamMap.get('returnto') || 'inicio';
+    console.log(this.loginUrl); 
   }
+  
+  signIn(){
 
-  loadDatos(){
-    this.storageService.getDatos().then(datos=>{
-      this.datos=datos;
-    });
-  }
+    this.login.getDatos().then(
+      (Datos) => {
+        this.log = Datos;
+        let valida = this.log.find(login => login.Nombre === this.user.nombre && login.password === this.user.password);
+        if(valida){
+          console.log(valida.Nombre, valida.password);
+          localStorage.setItem('authenticated','1');
+          this.router.navigateByUrl(this.loginUrl);
+        }
+        else{
+          
+        }
+      }
+    );
 
-  addDatos(){
-    this.newDato.modified = Date.now();
-    this.newDato.id = Date.now();
-    this.storageService.addDatos(this.newDato).then(dato=>{
-      this.newDato = <Datos>{};
-      this.showToast('!Datos Agregados');
-      this.loadDatos();
-    });
-  }
-
-  async showToast(msg){
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
-  }
-
-  updateDatos(dato: Datos ){
-    dato.nombre = `UPDATED: ${dato.nombre}`;
-    dato.modified = Date.now();
-    this.storageService.updateDatos(dato).then(item=>{
-      this.showToast('Elemento actualizado');
-      this.myList.closeSlidingItems();
-      this.loadDatos();
-    });
-  }
-
-  deleteDatos(dato: Datos){
-    this.storageService.deleteDatos(dato.id).then(item=>{
-      this.showToast('Elemento eliminado');
-      this.myList.closeSlidingItems();
-      this.loadDatos();
-    });
   }
 
   

@@ -21,12 +21,12 @@
 
 <ion-content class="ion-padding" color="secondary">
 
-  <form #formulario="ngForm" (ngSubmit) ="onSubmit()">
+  <form #formulario="ngForm">
 
     <ion-item>
       <ion-label>Ingrese su nombre:</ion-label>
       <ion-input type="text"
-                 name="Nombre" [(ngModel)]="usuario.Nombre"
+                 name="Nombre" [(ngModel)]="newDato.Nombre"
                  required>
       </ion-input>
     </ion-item>
@@ -34,7 +34,7 @@
     <ion-item>
       <ion-label>Fecha de nacimiento:</ion-label>
       <ion-datetime type="datetime"
-                    name="Nacimiento" [(ngModel)]="usuario.Nacimiento"
+                    name="Nacimiento" [(ngModel)]="newDato.Nacimiento"
                  required>
       </ion-datetime>           
     </ion-item>
@@ -42,7 +42,7 @@
     <ion-item>
       <ion-label>Pokemon favorito:</ion-label>
       <ion-input type="text"
-                 name="Favorito" [(ngModel)]="usuario.Favorito"
+                 name="Favorito" [(ngModel)]="newDato.Favorito"
                  required>
       </ion-input>
     </ion-item>
@@ -50,7 +50,7 @@
     <ion-item>
       <ion-label>Email: </ion-label>
       <ion-input type="email"
-                 name="email" [(ngModel)]= "usuario.email"
+                 name="email" [(ngModel)]= "newDato.email"
                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
                  required>
       </ion-input>
@@ -59,19 +59,49 @@
     <ion-item>
       <ion-label>Password: </ion-label>
       <ion-input type="password"
-                 name="password" [(ngModel)]= "usuario.password"
+                 name="password" [(ngModel)]= "newDato.password"
                  required>
       </ion-input>
     </ion-item>
     
     <ion-button [disabled] ="formulario.invalid"
-              type="submit" expand="block" routerLink="/pokemones">
+              type="submit" expand="block" routerLink="/login">
         Guardar
     </ion-button>
 
+    <ion-button (click)="addDatos()" expand="block" color="success">    
+       Agregar datos     
+      </ion-button>
 
-
-  </form>
-
-
+    <ion-list #myList>
+      <ion-list-header>
+        <ion-label><h1>Mis Datos</h1></ion-label>
+      </ion-list-header>
+  
+      <ion-list>
+        <ion-item-sliding *ngFor="let datos of datos">
+          <ion-item>
+            <ion-label text-wrap> 
+              <ion-text color="tertiary">
+                <p>{{datos.Nombre}}</p>
+                <p>{{datos.Nacimiento}}</p>
+                <p>{{datos.Favorito}}</p>
+                <p>{{datos.email}}</p>
+              </ion-text>
+              <ion-text color="danger">
+                <p>{{datos.password}}</p>
+              </ion-text>
+              <p>{{datos.modified | date: 'short'}}</p>
+            </ion-label>
+          </ion-item>
+          
+          <ion-item-options side="end">
+            <ion-item-option color="secondary" (click)="updateDatos(datos)">Actualizar</ion-item-option>
+           <ion-item-option color="danger" (click)="deleteDatos(datos)">Eliminar</ion-item-option> 
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-list>
+    </form>
 </ion-content>
+
