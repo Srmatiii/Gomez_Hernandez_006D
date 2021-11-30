@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import { by, element} from 'protractor';
 
 describe('new App', () => {
   let page: AppPage;
@@ -7,8 +8,12 @@ describe('new App', () => {
     page = new AppPage();
   });
 
-  it('should be blank', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('Start with Ionic UI Components');
+    expect(page.getPageTitle()).toContain('Tab 1');
+  });
+
+  it("Msg Inicio PoKe", ()=>{
+    expect(element(by.css(".end ion-avatar")));
   });
 });
